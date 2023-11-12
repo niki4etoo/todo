@@ -23,14 +23,8 @@ class List {
         }
     }
 
-    showAll() : void {
-        console.log('list of all the tasks');
-        
-        if(this.tasks.length > 0){
-            this.tasks.map((task) => {
-                console.log(`task(${task})`)
-            })
-        }
+    getList() : string[] {
+        return this.tasks;
     }
 }
 
