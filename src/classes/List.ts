@@ -1,31 +1,38 @@
 class List {
-    tasks: string[] = [];
+    static i = 0;
+    taskKeys: string[] = [];
+    taskValues: string[] = [];
 
     constructor(){
 
     }
-
+    
     add(value: string) : string {
         if(value.length <= 100) {
-            this.tasks.push(value);
-            return value;
+            let key = (List.i++).toString();
+            localStorage.setItem(key, value)
+            this.taskKeys.push(key)
         }
             
         return "";
     }
 
-    remove(value: string) : number {
-        if(this.tasks.indexOf(value) !== -1){
-            return this.tasks.indexOf(value);
-        } else {
-            console.error('The task is not found in the list');
-            return -1;
+    getKeys() : any {
+
+        if(this.taskKeys.length === 0){
+            for(let i = 0; i < 10; i++){
+                this.taskKeys.push(i.toString());
+                this.taskValues.push(localStorage.getItem(i.toString()) || "");
+            }
         }
+
+        return this.taskKeys;
     }
 
     getList() : string[] {
-        return this.tasks;
+        return this.taskValues;
     }
+
 }
 
 export default List;
