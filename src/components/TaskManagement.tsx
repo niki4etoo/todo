@@ -4,29 +4,30 @@ import uuid4 from 'uuid4';
 import List from '../classes/List'
 
 let list = new List();
-list.getKeys();
+
 const TaskManagement = () => {
 
     const [showTitles, setShowTitles] = useState(true);
 
     const taskInputRef = useRef(null);
 
-    const [showList, setShowList] = useState({ showList: true, newItem: false, removedItem: false });
+    const [tasks, setTasks] = useState({ showList: true, newItem: false, removedItem: false });
 
     const addTask = (target: any | null) => {
         if (target !== null && target.value !== "") {
             list.add(target.value);
             setShowTitles(false);
-            setShowList((state) => { return { ...state, newItem: true } });
+            setTasks((state) => { return { ...state, newItem: true } });
             target.value = "";
         }
     }
 
     const removeTask = () => {
-        list.getKeys().shift();
-        setShowList((state) => { return { ...state, removedItem: true } })
+        setTasks((state) => { return { ...state, removedItem: true } })
 
-        if (list.getKeys().length === 0) setShowTitles(true) // If the list is empty, get back the titles
+        list.remove();
+
+        if (list.get().length === 0) setShowTitles(true) // If the list is empty, get back the titles
     }
 
 
@@ -42,9 +43,9 @@ const TaskManagement = () => {
 
             <div className='flex justify-center align-middle flex-col'>
                 {
-                    showList &&
-                    list.getList().map((value: string) => (
-                        <div className='flex-item' key={uuid4()}>{value}</div>
+                    tasks &&
+                    list.get().map((value: string) => (
+                        <div className='flex-item text-2xl py-2' key={uuid4()}>{value}</div>
                     ))
                 }
             </div>

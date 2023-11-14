@@ -1,38 +1,25 @@
 class List {
-    static i = 0;
-    taskKeys: string[] = [];
-    taskValues: string[] = [];
+    tasks: string[];
 
     constructor(){
-
+        this.tasks = [];
     }
     
-    add(value: string) : string {
+    add(value: string) : void {
         if(value.length <= 100) {
-            let key = (List.i++).toString();
-            localStorage.setItem(key, value)
-            this.taskKeys.push(key)
+            this.tasks.push(value);
         }
-            
-        return "";
     }
 
-    getKeys() : any {
-
-        if(this.taskKeys.length === 0){
-            for(let i = 0; i < 10; i++){
-                this.taskKeys.push(i.toString());
-                this.taskValues.push(localStorage.getItem(i.toString()) || "");
-            }
+    remove() : void {
+        if(this.tasks.length > 0){
+            this.tasks.shift();
         }
-
-        return this.taskKeys;
     }
 
-    getList() : string[] {
-        return this.taskValues;
+    get() : string[] {
+        return this.tasks;
     }
-
 }
 
 export default List;
