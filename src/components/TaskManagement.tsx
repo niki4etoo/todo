@@ -1,11 +1,16 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useLayoutEffect } from 'react';
 import uuid4 from 'uuid4';
+
+import gsap from 'gsap';
+
 
 import List from '../classes/List'
 
 let list = new List();
 
 const TaskManagement = () => {
+
+    const container = useRef(null);
 
     const [showTitles, setShowTitles] = useState(true);
 
@@ -30,18 +35,27 @@ const TaskManagement = () => {
         if (list.get().length === 0) setShowTitles(true) // If the list is empty, get back the titles
     }
 
+    useLayoutEffect(() => {
+
+        let ctx = gsap.context(() => {
+            gsap.fromTo("#titles-todo", { opacity: 0 }, { opacity: 1, duration: 1.5 })
+        }, container);
+
+        return () => ctx.revert(); // cleanup
+
+    }, [tasks.removedItem]);
 
     return (
-        <div className='container mx-auto px-4'>
+        <div ref={container} className='container mx-auto px-4'>
             {showTitles &&
-                <div>
+                <div id="titles-todo">
                     <h1 className='text-6xl font-bold'>To Do</h1>
                     <h3 className='text-3xl font-semibold py-6 divide-y-0 divide-slate-800'>List of tasks</h3>
                     <hr className="my-12 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-800 to-transparent opacity-25 dark:opacity-100" />
                 </div>
             }
 
-            <div className='flex justify-center align-middle flex-col'>
+            <div className='flex justify-center align-middle flex-col' >
                 {
                     tasks &&
                     list.get().map((value: string) => (
