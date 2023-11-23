@@ -8,6 +8,18 @@ import List from '../classes/List'
 
 let list = new List();
 
+// To Do ( creating a link to download text file for to do list )
+function download(text : string , filename : any){
+    var blob = new Blob([text], {type: "text/plain"});
+    var url = window.URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+  }
+  
+  download("this is the file", "text.txt");
+
 const TaskManagement = () => {
 
     const container = useRef(null);

@@ -9,6 +9,9 @@ class List {
         if(value.length <= 100) {
             this.tasks.push(value);
         }
+
+        //To Do
+        
     }
 
     remove() : void {
