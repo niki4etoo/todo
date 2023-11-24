@@ -9,8 +9,6 @@ class List {
         if(value.length <= 100) {
             this.tasks.push(value);
         }
-
-        //To Do
         
     }
 
@@ -22,6 +20,14 @@ class List {
 
     get() : string[] {
         return this.tasks;
+    }
+
+    createList() : string {
+        let result : string = "";
+        this.tasks.map(( elem, index ) => {
+            result += `${index + 1}. ${elem} - \n`;
+        })
+        return result;
     }
 }
 

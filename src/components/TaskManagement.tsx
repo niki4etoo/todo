@@ -17,8 +17,6 @@ function download(text : string , filename : any){
     a.download = filename;
     a.click();
   }
-  
-  download("this is the file", "text.txt");
 
 const TaskManagement = () => {
 
@@ -102,6 +100,13 @@ const TaskManagement = () => {
                         removeTask();
                     }}>
                         Remove
+                    </button>
+                </div>
+                <div className='flex-initial w-64'>
+                    <button className='hover:text-opacity-80 hover:border-slate-800' onClick={() => {
+                        download(list.createList(), 'todo.txt');
+                    }}>
+                        Download
                     </button>
                 </div>
             </div>
